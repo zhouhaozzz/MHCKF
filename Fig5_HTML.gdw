@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GetDataWorkspace>
+  <version>2.25.0.32</version>
+  <WSversion>10</WSversion>
+  <File>
+    <Name>C:\Users\Lenovo\Desktop\XFEL\deflecting\MHCKF\Fig5_HTML.jpg</Name>
+    <Width>968</Width>
+    <Height>714</Height>
+  </File>
+  <Line>
+    <Caption>Line #1</Caption>
+    <LineColor>4,4,5</LineColor>
+    <BkColor>253,253,253</BkColor>
+    <PtColor>220,70,220</PtColor>
+    <LineType>0</LineType>
+    <Points MF="9">1534,5170,1723,4981,1840,4846,1939,4720,2038,4576,2128,4441,2209,4315,2335,4090,2434,3892,2533,3712</Points>
+    <Points MF="9">2623,3523,2686,3388,2749,3271,2866,3001,2956,2803,3046,2605,3145,2380,3226,2191,3307,2002,3388,1822</Points>
+    <Points MF="9">3460,1669,3523,1552,3604,1399,3676,1264,3766,1102,3847,976,3937,841,4018,742,4072,679,4144,625</Points>
+    <Points MF="9">4189,598,4252,580,4342,580,4450,634,4531,706,4621,805,4693,904,4756,994,4837,1138,4945,1336</Points>
+    <Points MF="9">5053,1543,5161,1759,5269,1984,5368,2200,5512,2524,5647,2839,5782,3136,5908,3397,6025,3631,6187,3955</Points>
+    <Points MF="9">6358,4261,6502,4486,6583,4603,6691,4756,6817,4918,6925,5035,7051,5152</Points>
+  </Line>
+  <CurrentLine>0</CurrentLine>
+  <Xmin MF="9">1228,5629,-4.000000e+002</Xmin>
+  <Xmax MF="9">7339,5629,4.000000e+002</Xmax>
+  <Ymin MF="9">850,5287,1.000000e+001</Ymin>
+  <Ymax MF="9">850,445,8.000000e+001</Ymax>
+  <XScale>linear</XScale>
+  <YScale>linear</YScale>
+  <Position>620,-216</Position>
+  <Zoom>
+    <Scale>80.0</Scale>
+  </Zoom>
+  <Digitize>
+    <IgnorePixels>1</IgnorePixels>
+    <LineIDMethod>2</LineIDMethod>
+  </Digitize>
+  <AutoTrace>
+    <TraceDistance>8</TraceDistance>
+    <SmoothLines>1</SmoothLines>
+  </AutoTrace>
+  <DigitizeArea>
+    <LineOrArea>0</LineOrArea>
+    <AreaType>0</AreaType>
+    <GridType>0</GridType>
+    <deltaX>8.00000000000000e+000</deltaX>
+    <deltaXUnits>1</deltaXUnits>
+    <GoThroughX>-4.00000000000000e+002</GoThroughX>
+    <ShiftX>1</ShiftX>
+    <RotateAngle>0.000000</RotateAngle>
+    <dx>2.000000</dx>
+  </DigitizeArea>
+  <GridSettings>
+    <ShowGrid>0</ShowGrid>
+    <AreaType>0</AreaType>
+    <dx>15.000000</dx>
+    <dy>15.000000</dy>
+  </GridSettings>
+</GetDataWorkspace>
