@@ -56,7 +56,11 @@ plot(P * 0.001, 'DisplayName', 'Optimized surface');
 legend;
 xlabel('electric heater');
 ylabel('Heat Flux [W/mm^2]');
-%%
-heat_face = [[1 2 3] [4 5 6] [7 8 9]]
-K = [3 6 9]
-lsqlin(heat_face, K, [], [], [], [], -10, -10);
+
+lb = -Inf(size(heat_face, 2), 1); % lower bounds
+ub = Inf(size(heat_face, 2), 1); % upper bounds
+result = lsqlin(heat_face, K, [], [], [], [], lb, ub);
+% 输出各个加热片的功率
+P = result;
+disp('Optimal Heating Powers:');
+disp(P);
