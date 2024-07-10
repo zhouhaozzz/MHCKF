@@ -22,6 +22,6 @@ public:
 
 	void Initialization(int heat_num);
 	void readData(const std::string& filename, std::vector<std::vector<std::vector<double>>>& data);
-	void writeData();
+	void writeData(const std::string& filename);
 };
 

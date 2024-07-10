@@ -150,6 +150,7 @@
     <ClCompile Include="function.cpp" />
     <ClCompile Include="colPivHouseholderQr.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="nlss.cpp" />
     <ClCompile Include="normal_equation.cpp" />
     <ClCompile Include="QR_MGS.cpp" />
     <ClCompile Include="MHCKF.cpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="function.h" />
     <ClInclude Include="colPivHouseholderQr.h" />
+    <ClInclude Include="nlss.h" />
     <ClInclude Include="normal_equation.h" />
     <ClInclude Include="QR_MGS.h" />
     <ClInclude Include="MHCKF.h" />

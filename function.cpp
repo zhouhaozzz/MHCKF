@@ -19,6 +19,19 @@ std::vector<std::vector<double>> transpose(const std::vector<std::vector<double>
     return result;
 }
 
+// 矩阵转置乘法函数
+std::vector<double> multiplyTranspose(const std::vector<std::vector<double>>& A, const std::vector<double>& x) {
+    int rows = A.size();
+    int cols = A[0].size();
+    std::vector<double> result(cols, 0.0);
+    for (int i = 0; i < cols; ++i) {
+        for (int j = 0; j < rows; ++j) {
+            result[i] += A[j][i] * x[j];
+        }
+    }
+    return result;
+}
+
 // 矩阵求逆函数
 std::vector<std::vector<double>> inverse(const std::vector<std::vector<double>>& A) {
     int n = A.size();
@@ -207,4 +220,64 @@ void printMatrix(const std::vector<std::vector<double>>& mat) {
 		}
 		std::cout << std::endl;
 	}
+}
+
+// 辅助函数：LU分解
+void luDecomposition(const std::vector<std::vector<double>>& A, std::vector<std::vector<double>>& L, std::vector<std::vector<double>>& U) {
+    size_t n = A.size();
+    L = std::vector<std::vector<double>>(n, std::vector<double>(n, 0.0));
+    U = std::vector<std::vector<double>>(n, std::vector<double>(n, 0.0));
+
+    for (size_t i = 0; i < n; ++i) {
+        // 上三角矩阵
+        for (size_t k = i; k < n; ++k) {
+            double sum = 0.0;
+            for (size_t j = 0; j < i; ++j) {
+                sum += (L[i][j] * U[j][k]);
+            }
+            U[i][k] = A[i][k] - sum;
+        }
+
+        // 下三角矩阵
+        for (size_t k = i; k < n; ++k) {
+            if (i == k) {
+                L[i][i] = 1.0; // 对角线为1
+            }
+            else {
+                double sum = 0.0;
+                for (size_t j = 0; j < i; ++j) {
+                    sum += (L[k][j] * U[j][i]);
+                }
+                L[k][i] = (A[k][i] - sum) / U[i][i];
+            }
+        }
+    }
+}
+
+// 辅助函数：前向代替
+std::vector<double> forwardSubstitution(const std::vector<std::vector<double>>& L, const std::vector<double>& b) {
+    size_t n = L.size();
+    std::vector<double> y(n, 0.0);
+    for (size_t i = 0; i < n; ++i) {
+        double sum = 0.0;
+        for (size_t j = 0; j < i; ++j) {
+            sum += L[i][j] * y[j];
+        }
+        y[i] = b[i] - sum;
+    }
+    return y;
+}
+
+// 辅助函数：后向代替
+std::vector<double> backSubstitution(const std::vector<std::vector<double>>& U, const std::vector<double>& y) {
+    size_t n = U.size();
+    std::vector<double> x(n, 0.0);
+    for (int i = n - 1; i >= 0; --i) {
+        double sum = 0.0;
+        for (size_t j = i + 1; j < n; ++j) {
+            sum += U[i][j] * x[j];
+        }
+        x[i] = (y[i] - sum) / U[i][i];
+    }
+    return x;
 }

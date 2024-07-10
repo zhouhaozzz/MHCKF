@@ -46,11 +46,12 @@ void MHCKF::Initialization(int heat_num)
 
 }
 
-void MHCKF::writeData()
+void MHCKF::writeData(const std::string& filename)
 {
     std::vector<double> face_computed = multiply(this->M, this->H);
 
-    std::ofstream file("data/suface_output.txt");
+    std::string filename1 = "data/suface_output_" + filename + ".txt";
+    std::ofstream file(filename1);
     if (!file.is_open()) 
     {
         std::cerr << "Error: failed to open file data/suface_output.txt" << std::endl;
@@ -59,12 +60,13 @@ void MHCKF::writeData()
 
     for (int i = 0; i < datax_num; i++)
     {
-        file << std::setprecision(10) << this->datax[i] << " " << this->init_face[i] << " " << face_computed[i] << std::endl;
+        file << std::setprecision(10) << this->datax[i] << " " << this->K[i] << " " << face_computed[i] << std::endl;
     }
 
     file.close();
 
-    std::ofstream file1("data/power_distribution.txt");
+    filename1 = "data/power_distribution_" + filename + ".txt";
+    std::ofstream file1(filename1);
     if (!file1.is_open())
     {
         std::cerr << "Error: failed to open file data/suface_output.txt" << std::endl;
