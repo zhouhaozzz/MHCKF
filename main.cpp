@@ -4,6 +4,7 @@
 #include "normal_equation.h"
 #include "QR_MGS.h"
 #include "nlss.h";
+#include "LSQ_cuda.cuh"
 
 
 int main()
@@ -43,6 +44,10 @@ int main()
     mhckf->writeData("nlss");
     std::cout << "\n";
 
-
+#ifdef CUDA
+    // LSQ_cuda
+    //LSQ_CUDA::cuda_text();
+    LSQ_CUDA::normal_equation(mhckf->M, mhckf->K);
+#endif
 	return 0;
 }

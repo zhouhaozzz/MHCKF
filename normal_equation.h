@@ -9,5 +9,6 @@ public:
 	~normal_equation();
 
 	std::vector<double> linear_least_squares(const std::vector<std::vector<double>>& M, const std::vector<double>& H);
+	std::vector<double> linear_least_squares_GPU(const std::vector<std::vector<double>>& M, const std::vector<double>& H);
 };
 

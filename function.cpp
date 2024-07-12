@@ -281,3 +281,12 @@ std::vector<double> backSubstitution(const std::vector<std::vector<double>>& U, 
     }
     return x;
 }
+
+//__global__ void transpose_GPU(double* d_A, double* d_AT, int rows, int cols) {
+//	int i = blockIdx.x * blockDim.x + threadIdx.x;
+//	int j = blockIdx.y * blockDim.y + threadIdx.y;
+//
+//	if (i < rows && j < cols) {
+//		d_AT[j * rows + i] = d_A[i * cols + j];
+//	}
+//}

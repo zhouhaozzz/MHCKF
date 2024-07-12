@@ -56,5 +56,19 @@
     <ClInclude Include="nlss.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="function_cuda.cuh">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LSQ_cuda.cuh">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="LSQ_cuda.cu">
+      <Filter>源文件</Filter>
+    </CudaCompile>
+    <CudaCompile Include="function_cuda.cu">
+      <Filter>源文件</Filter>
+    </CudaCompile>
   </ItemGroup>
 </Project>

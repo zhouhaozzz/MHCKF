@@ -20,6 +20,8 @@
 using namespace std;
 using namespace Eigen;
 
+#define BLOCK_SIZE 256
+
 std::vector<std::vector<double>> transpose(const std::vector<std::vector<double>>& A);
 std::vector<double> multiplyTranspose(const std::vector<std::vector<double>>& A, const std::vector<double>& x);
 std::vector<std::vector<double>> inverse(const std::vector<std::vector<double>>& A);
@@ -37,56 +39,3 @@ void luDecomposition(const std::vector<std::vector<double>>& A, std::vector<std:
 std::vector<double> forwardSubstitution(const std::vector<std::vector<double>>& L, const std::vector<double>& b);
 std::vector<double> backSubstitution(const std::vector<std::vector<double>>& U, const std::vector<double>& y);
 
-//template <typename TYPE> void destory_1d(TYPE*& data)
-//{
-//    if (data == nullptr) return;
-//    delete[] data;
-//    data = nullptr;
-//}
-//
-//template <typename TYPE> void destory_2d(TYPE**& data, int N)
-//{
-//    if (data == nullptr) return;
-//    for (int i = 0; i < N; i++)
-//    {
-//        delete[] data[i];
-//    }
-//    delete[] data;
-//    data = nullptr;
-//}
-//
-//template <typename TYPE> void destory_3d(TYPE**& data, int N1, int N2)
-//{
-//    if (data == nullptr) return;
-//    for (int i = 0; i < N1; ++i) {
-//        for (int j = 0; j < N2; ++j) {
-//            delete[] data[i][j];
-//        }
-//        delete[] data[i];
-//    }
-//    delete[] data;
-//    data = nullptr;
-//}
-//
-//template <typename TYPE> void create_1d(TYPE*& data, int N)
-//{
-//    data = new TYPE[N];
-//}
-//
-//template <typename TYPE> void create_2d(TYPE**& data, int N1, int N2) {
-//    data = new TYPE * [N1];
-//    for (int i = 0; i < N1; i++) {
-//        data[i] = new TYPE[N2];
-//    }
-//}
-//
-//template <typename TYPE> void create_3d(TYPE***& data, int N1, int N2, int N3) {
-//    data = new TYPE * *[N1];
-//    for (int i = 0; i < N1; i++) {
-//        data[i] = new TYPE * [N2];
-//        for (int j = 0; j < N2; j++)
-//        {
-//            data[i][j] = new TYPE[N3];
-//        }
-//    }
-//}
