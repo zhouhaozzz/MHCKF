@@ -1,6 +1,6 @@
 #include "MHCKF.h"
 
-MHCKF::MHCKF()
+MHCKF::MHCKF(int rank, int size) : rank(rank), size(size)
 {
 
 }
@@ -18,31 +18,49 @@ MHCKF::~MHCKF()
 void MHCKF::Initialization(int heat_num)
 {
     this->heat_num = heat_num;
-    this->input_data = {};
-    for (int i = 1; i <= heat_num; ++i) {
-        std::string filename = "data/" + std::to_string(i) + ".txt";
-        readData(filename, this->input_data);
+    this->datax = {};
+    if (rank == 0)
+    {
+        for (int i = 1; i <= heat_num; ++i) {
+            std::string filename = "data/" + std::to_string(i) + ".txt";
+            readData(filename, this->datax, i-1);
+
+            if (i == 1) {
+				this->datax_num = this->datax.size() / 2;
+			}
+        }
+
+        readData("data/heat source.txt", this->datax, 1);
     }
 
-    readData("data/heat source.txt", this->input_data);
+    
+    MPI_Bcast(&this->datax_num, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
+    this->input_data = std::vector<double>((heat_num + 2) * this->datax_num);
+    MPI_Scatter(this->datax.data(), (heat_num + 2) * this->datax_num, MPI_DOUBLE, this->input_data.data(), (heat_num + 2) * this->datax_num, MPI_DOUBLE, 0, MPI_COMM_WORLD);
     // 初始化数据
-    this->datax_num = this->input_data[0].size();
     this->datax = std::vector<double>(this->datax_num);
     this->M = std::vector<std::vector<double>>(this->datax_num, std::vector<double>(this->heat_num));
     for (int i = 0; i < this->datax_num; i++) {
-        this->datax[i] = this->input_data[0][i][0] / 1.0e6;
-
-        for (int j = 0; j < this->heat_num; j++) {
-            this->M[i][j] = this->input_data[j][i][1] * 1.0e9;
-        }
+        this->datax[i] = this->input_data[i] / 1.0e6;
     }
+
+    for (int i = 0; i < this->heat_num; i++) {
+        for (int j = 0; j < this->datax_num; j++)
+        {
+            this->M[j][i] = this->input_data[(i + 1) * this->datax_num + j] * 1.0e9;
+        }
+	}
+
+
 
     this->K = std::vector<double>(this->datax_num);
     this->init_face = std::vector<double>(this->datax_num, 0);
     for (int i = 0; i < this->datax_num; i++) {
-        this->K[i] = -this->init_face[i] - this->input_data[heat_num][i][1] * 1.0e9;
+        //this->K[i] = -this->init_face[i] - this->input_data[heat_num][i][1] * 1.0e9;
+        this->K[i] = -this->init_face[i] - this->input_data[(heat_num + 1) * this->datax_num + i] * 1.0e9;
     }
+
 
 }
 
@@ -81,9 +99,9 @@ void MHCKF::writeData(const std::string& filename)
     file1.close();
 }
 
-void MHCKF::readData(const std::string& filename, std::vector<std::vector<std::vector<double>>>& data)
+void MHCKF::readData(const std::string& filename, std::vector<double>& data, int num)
 {
-    std::vector<std::vector<double>> data1 = {};
+    std::vector<std::vector<double>> temp;
     std::string line;
 
     std::ifstream file(filename);
@@ -99,12 +117,24 @@ void MHCKF::readData(const std::string& filename, std::vector<std::vector<std::v
         while (ss >> value) {
             row.push_back(value);
         }
-        data1.push_back(row);
+        if (num == 0) {
+            temp.push_back(row);
+        }
+        else {
+            data.push_back(row[1]);
+        }
     }
 
-    file.close();
+    if (num == 0) {
+        for (int i = 0; i < temp.size(); i++) {
+            data.push_back(temp[i][0]);
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            data.push_back(temp[i][1]);
+        }
+	}
 
-    data.push_back(data1);
+    file.close();
 }
 
 

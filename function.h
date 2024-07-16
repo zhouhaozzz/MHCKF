@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <Eigen/Dense>
 #include <unsupported/Eigen/NonLinearOptimization>
+#include <mpi.h>
 
 using namespace std;
 using namespace Eigen;
